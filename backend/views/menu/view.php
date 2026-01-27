@@ -200,10 +200,7 @@ $renderMenuTree = function ($items) use (&$renderMenuTree) {
                             <span class="text-muted"><i class="bi bi-key me-2 text-primary"></i> Access Code</span>
                             <span class="fw-bold font-monospace bg-light p-1 px-2 rounded"><?= $model->code ?></span>
                         </div>
-                        <div class="list-group-item d-flex justify-content-between align-items-center py-3">
-                            <span class="text-muted"><i class="bi bi-geo-alt me-2 text-primary"></i> Location</span>
-                            <span class="fw-medium"><?= Html::encode($model->location ?: 'Not specified') ?></span>
-                        </div>
+
                     </div>
                 </div>
             </div>
