@@ -53,17 +53,29 @@ AppAsset::register($this);
                     <span class="text-muted mx-2">|</span>
 
                     <?php
-                    // Top Bar Language Selector (Desktop)
+                    // Top Bar Language Selector (Desktop - Dropdown)
                     $currentLang = Yii::$app->language;
                     $langs = \common\models\Language::getActiveLanguages();
-                    foreach ($langs as $lang) {
-                        $activeClass = ($currentLang === $lang->code) ? 'text-primary fw-bold' : 'text-muted';
-                        echo Html::a(
-                            strtoupper($lang->code),
-                            ['/site/language', 'lang' => $lang->code],
-                            ['class' => "text-decoration-none small me-2 $activeClass"]
-                        );
-                    }
+                    ?>
+                    <div class="dropdown d-inline-block">
+                        <a class="dropdown-toggle text-decoration-none small text-muted" href="#" role="button"
+                            id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <?= strtoupper($currentLang) ?>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="langDropdown"
+                            style="min-width: auto;">
+                            <?php foreach ($langs as $lang): ?>
+                                <li>
+                                    <a class="dropdown-item small <?= $currentLang === $lang->code ? 'active' : '' ?>"
+                                        href="<?= Url::to(['/site/language', 'lang' => $lang->code]) ?>">
+                                        <span
+                                            class="fi fi-<?= $lang->code === 'en' ? 'gb' : $lang->code ?> me-2 rounded-1"></span><?= $lang->name ?>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php
                     ?>
                 </div>
             </div>
