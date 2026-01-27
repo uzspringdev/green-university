@@ -58,15 +58,15 @@ AppAsset::register($this);
                     $langs = \common\models\Language::getActiveLanguages();
                     ?>
                     <div class="dropdown">
-                        <a class="dropdown-toggle text-decoration-none text-white small fw-bold opacity-75 hover-opacity-100"
+                        <a class="dropdown-toggle text-decoration-none text-white small fw-bold opacity-90 hover-opacity-100"
                             href="#" role="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-globe2 me-1"></i> <?= strtoupper($currentLang) ?>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2"
-                            aria-labelledby="langDropdown" style="min-width: 150px;">
+                        <ul class="dropdown-menu dropdown-menu-end modern-dropdown border-0"
+                            aria-labelledby="langDropdown">
                             <?php foreach ($langs as $lang): ?>
                                 <li>
-                                    <a class="dropdown-item small py-2 d-flex align-items-center <?= $currentLang === $lang->code ? 'active bg-light text-primary fw-bold' : '' ?>"
+                                    <a class="dropdown-item small d-flex align-items-center <?= $currentLang === $lang->code ? 'active' : '' ?>"
                                         href="<?= Url::to(['/site/language', 'lang' => $lang->code]) ?>">
                                         <span
                                             class="fi fi-<?= $lang->code === 'en' ? 'gb' : $lang->code ?> me-2 rounded-1"></span><?= $lang->name ?>
