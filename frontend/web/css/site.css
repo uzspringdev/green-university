@@ -537,6 +537,37 @@ a:hover {
     margin-top: 8px !important;
 }
 
+/* Robust Top Bar Language Button */
+.top-bar-lang-btn {
+    text-decoration: none !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    transition: color 0.2s ease, opacity 0.2s ease !important;
+    /* NO transform */
+    background: transparent !important;
+    border: none !important;
+    padding: 4px 0 !important;
+    transform: none !important;
+    /* Hard lock */
+}
+
+.top-bar-lang-btn:hover,
+.top-bar-lang-btn:focus,
+.top-bar-lang-btn[aria-expanded="true"] {
+    color: white !important;
+    opacity: 1 !important;
+    transform: none !important;
+    /* Ensure no movement on active/hover */
+}
+
+.top-bar-lang-btn::after {
+    display: none !important;
+}
+
 /* Navbar Modern */
 .navbar-modern {
     background: rgba(255, 255, 255, 0.95) !important;

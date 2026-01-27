@@ -67,9 +67,9 @@ AppAsset::register($this);
                         ];
                         $currentLabel = isset($nameMap[$currentLang]) ? $nameMap[$currentLang] : strtoupper($currentLang);
                         ?>
-                        <a class="dropdown-toggle text-decoration-none text-white small fw-bold opacity-90 hover-opacity-100"
-                            href="#" role="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-globe2 me-1"></i> <?= $currentLabel ?>
+                        <a class="dropdown-toggle top-bar-lang-btn" href="#" role="button" id="langDropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-globe2 me-1"></i> <span><?= $currentLabel ?></span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end modern-dropdown border-0"
                             aria-labelledby="langDropdown">
