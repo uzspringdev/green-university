@@ -59,6 +59,7 @@ sed -i "s|{{BACKEND_DOMAIN}}|$ADMIN_DOMAIN|g" /etc/nginx/sites-available/green-u
 sed -i "s|{{PROJECT_ROOT}}|$PROJECT_DIR|g" /etc/nginx/sites-available/green-university.conf
 
 # Enable Site
+sudo rm -f /etc/nginx/sites-enabled/default
 sudo ln -sf /etc/nginx/sites-available/green-university.conf /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl restart nginx
 
