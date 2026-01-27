@@ -669,9 +669,8 @@ a:hover {
 .modern-dropdown .dropdown-item:hover {
     background: var(--light-green);
     color: var(--primary-green) !important;
-    padding-left: 20px;
-    padding-right: 10px;
-    font-weight: 600;
+    /* padding-left: 20px;  <-- REMOVED to prevent shift */
+    /* font-weight: 600;    <-- REMOVED to prevent jitter */
 }
 
 /* Modern Auth Buttons */
