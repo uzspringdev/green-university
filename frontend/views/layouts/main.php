@@ -49,6 +49,22 @@ AppAsset::register($this);
                     <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>
                     <a href="#" class="me-2"><i class="bi bi-instagram"></i></a>
                     <a href="#" class="me-2"><i class="bi bi-telegram"></i></a>
+
+                    <span class="text-muted mx-2">|</span>
+
+                    <?php
+                    // Top Bar Language Selector (Desktop)
+                    $currentLang = Yii::$app->language;
+                    $langs = \common\models\Language::getActiveLanguages();
+                    foreach ($langs as $lang) {
+                        $activeClass = ($currentLang === $lang->code) ? 'text-primary fw-bold' : 'text-muted';
+                        echo Html::a(
+                            strtoupper($lang->code),
+                            ['/site/language', 'lang' => $lang->code],
+                            ['class' => "text-decoration-none small me-2 $activeClass"]
+                        );
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -92,7 +108,7 @@ AppAsset::register($this);
                     $currentFlag = isset($flagMap[$currentLang]) ? $flagMap[$currentLang] : $currentLang;
 
                     echo Nav::widget([
-                        'options' => ['class' => 'navbar-nav d-flex flex-row'], // flex-row for horizontal
+                        'options' => ['class' => 'navbar-nav d-flex flex-row d-lg-none'], // Visible only on Mobile
                         'items' => [
                             [
                                 'label' => '<span class="fi fi-' . $currentFlag . ' rounded-1"></span>',
@@ -104,8 +120,8 @@ AppAsset::register($this);
                         ],
                     ]);
 
-                    // Vertical Separator
-                    echo '<div class="mx-2" style="width: 1px; height: 24px; background-color: #dee2e6;"></div>';
+                    // Vertical Separator (Hide on mobile since lang selector is there, show on desktop)
+                    echo '<div class="mx-2 d-none d-lg-block" style="width: 1px; height: 24px; background-color: #dee2e6;"></div>';
 
                     // Auth Buttons Group
                     echo '<div class="d-flex align-items-center gap-2">';
