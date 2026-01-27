@@ -17,7 +17,7 @@ use common\models\Menu;
 
     <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'location')->textInput() ?>
+
 
     <?= $form->field($model, 'status')->dropDownList([
         Menu::STATUS_ACTIVE => 'Active',
