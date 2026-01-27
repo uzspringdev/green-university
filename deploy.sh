@@ -61,6 +61,13 @@ sed -i "s|{{PROJECT_ROOT}}|$PROJECT_DIR|g" /etc/nginx/sites-available/green-univ
 # Enable Site
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo ln -sf /etc/nginx/sites-available/green-university.conf /etc/nginx/sites-enabled/
+
+# Create Log Directories
+mkdir -p $PROJECT_DIR/frontend/runtime/logs
+mkdir -p $PROJECT_DIR/backend/runtime/logs
+sudo chown -R www-data:www-data $PROJECT_DIR/frontend/runtime/logs
+sudo chown -R www-data:www-data $PROJECT_DIR/backend/runtime/logs
+
 sudo nginx -t && sudo systemctl restart nginx
 
 # 7. Fix Permissions
