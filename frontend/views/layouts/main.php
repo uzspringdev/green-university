@@ -40,24 +40,24 @@ AppAsset::register($this);
 
     <header>
         <div class="top-bar">
-            <div class="container d-flex justify-content-between align-items-center">
-                <div class="contact-info small">
+            <div class="container d-flex justify-content-center justify-content-lg-between align-items-center">
+                <div class="contact-info small d-none d-lg-block">
                     <span class="me-3"><i class="bi bi-telephone-fill me-1"></i> +998 55 512 00 77</span>
                     <span><i class="bi bi-envelope-fill me-1"></i> info@greenuniversity.uz</span>
                 </div>
                 <div class="d-flex align-items-center">
-                    <div class="social-icons small d-none d-sm-block me-3">
+                    <div class="social-icons small me-3">
                         <a href="#" class="me-2 text-white-50 hover-white"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="me-2 text-white-50 hover-white"><i class="bi bi-instagram"></i></a>
                         <a href="#" class="me-2 text-white-50 hover-white"><i class="bi bi-telegram"></i></a>
                         <a href="#" class="text-white-50 hover-white"><i class="bi bi-linkedin"></i></a>
                     </div>
 
-                    <div class="d-none d-sm-block border-end border-white opacity-25 mx-2" style="height: 16px;"></div>
+                    <div class="border-end border-white opacity-25 mx-2" style="height: 16px;"></div>
 
-                    <div class="d-none d-sm-flex align-items-center ms-3">
+                    <div class="d-flex align-items-center ms-3">
                         <?php
-                        // Top Bar Language Selector (Desktop - Dropdown)
+                        // Top Bar Language Selector (Desktop & Mobile)
                         $currentLang = Yii::$app->language;
                         $langs = \common\models\Language::getActiveLanguages();
                         ?>
@@ -134,13 +134,7 @@ AppAsset::register($this);
                     echo Nav::widget([
                         'options' => ['class' => 'navbar-nav d-flex flex-row d-lg-none'], // Visible only on Mobile
                         'items' => [
-                            [
-                                'label' => '<span class="fi fi-' . $currentFlag . ' rounded-1"></span>',
-                                'encode' => false,
-                                'items' => $dropdownItems,
-                                'options' => ['class' => 'nav-item dropdown language-selector'],
-                                'linkOptions' => ['class' => 'nav-link dropdown-toggle text-dark fw-bold small', 'data-bs-toggle' => 'dropdown', 'title' => isset($nameMap[$currentLang]) ? $nameMap[$currentLang] : $currentLang],
-                            ],
+                            // Mobile language selector removed in favor of Top Bar
                         ],
                     ]);
 
