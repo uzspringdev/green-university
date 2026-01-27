@@ -45,44 +45,49 @@ AppAsset::register($this);
                     <span class="me-3"><i class="bi bi-telephone-fill me-1"></i> +998 55 512 00 77</span>
                     <span><i class="bi bi-envelope-fill me-1"></i> info@greenuniversity.uz</span>
                 </div>
-                <div class="social-icons small d-none d-sm-block">
-                    <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="me-2"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="me-2"><i class="bi bi-telegram"></i></a>
-                </div>
+                <div class="d-flex align-items-center">
+                    <div class="social-icons small d-none d-sm-block me-3">
+                        <a href="#" class="me-2 text-white-50 hover-white"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="me-2 text-white-50 hover-white"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="me-2 text-white-50 hover-white"><i class="bi bi-telegram"></i></a>
+                        <a href="#" class="text-white-50 hover-white"><i class="bi bi-linkedin"></i></a>
+                    </div>
 
-                <div class="d-none d-sm-flex align-items-center ms-3">
-                    <?php
-                    // Top Bar Language Selector (Desktop - Dropdown)
-                    $currentLang = Yii::$app->language;
-                    $langs = \common\models\Language::getActiveLanguages();
-                    ?>
-                    <div class="dropdown">
+                    <div class="d-none d-sm-block border-end border-white opacity-25 mx-2" style="height: 16px;"></div>
+
+                    <div class="d-none d-sm-flex align-items-center ms-3">
                         <?php
-                        // Full name mapping
-                        $nameMap = [
-                            'uz' => "O'zbek",
-                            'en' => "English",
-                            'ru' => "Русский",
-                        ];
-                        $currentLabel = isset($nameMap[$currentLang]) ? $nameMap[$currentLang] : strtoupper($currentLang);
+                        // Top Bar Language Selector (Desktop - Dropdown)
+                        $currentLang = Yii::$app->language;
+                        $langs = \common\models\Language::getActiveLanguages();
                         ?>
-                        <a class="dropdown-toggle top-bar-lang-btn" href="#" role="button" id="langDropdown"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-globe2 me-1"></i> <span><?= $currentLabel ?></span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end modern-dropdown border-0"
-                            aria-labelledby="langDropdown">
-                            <?php foreach ($langs as $lang): ?>
-                                <li>
-                                    <a class="dropdown-item small d-flex align-items-center <?= $currentLang === $lang->code ? 'active' : '' ?>"
-                                        href="<?= Url::to(['/site/language', 'lang' => $lang->code]) ?>">
-                                        <span
-                                            class="fi fi-<?= $lang->code === 'en' ? 'gb' : $lang->code ?> me-2 rounded-1"></span><?= $lang->name ?>
-                                    </a>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
+                        <div class="dropdown">
+                            <?php
+                            // Full name mapping
+                            $nameMap = [
+                                'uz' => "O'zbek",
+                                'en' => "English",
+                                'ru' => "Русский",
+                            ];
+                            $currentLabel = isset($nameMap[$currentLang]) ? $nameMap[$currentLang] : strtoupper($currentLang);
+                            ?>
+                            <a class="dropdown-toggle top-bar-lang-btn" href="#" role="button" id="langDropdown"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-globe2 me-1"></i> <span><?= $currentLabel ?></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end modern-dropdown border-0"
+                                aria-labelledby="langDropdown">
+                                <?php foreach ($langs as $lang): ?>
+                                    <li>
+                                        <a class="dropdown-item small d-flex align-items-center <?= $currentLang === $lang->code ? 'active' : '' ?>"
+                                            href="<?= Url::to(['/site/language', 'lang' => $lang->code]) ?>">
+                                            <span
+                                                class="fi fi-<?= $lang->code === 'en' ? 'gb' : $lang->code ?> me-2 rounded-1"></span><?= $lang->name ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

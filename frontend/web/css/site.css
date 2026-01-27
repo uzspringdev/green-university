@@ -508,11 +508,28 @@ a:hover {
 .top-bar a {
     color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
-    transition: color 0.2s ease, opacity 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .top-bar a:hover {
     color: white;
+}
+
+/* Specific styling for Top Bar Social Icons */
+.top-bar .social-icons a {
+    color: rgba(255, 255, 255, 0.7) !important;
+    /* Overrides generic link color */
+    font-size: 1rem;
+    /* Slightly larger for visibility */
+    display: inline-flex;
+    align-items: center;
+}
+
+.top-bar .social-icons a:hover {
+    color: #ffffff !important;
+    transform: translateY(-1px);
+    /* Subtle lift */
+    opacity: 1;
 }
 
 /* Fix Top Bar Dropdown Jitter & Shift */
