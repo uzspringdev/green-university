@@ -12,6 +12,10 @@ return [
         'cache' => [
             'class' => \yii\caching\FileCache::class,
         ],
+        'assetManager' => [
+            'appendTimestamp' => true,
+            'linkAssets' => true,
+        ],
         'formatter' => [
             'class' => 'yii\i18n\Formatter',
             'dateFormat' => 'd MMMM yyyy',
