@@ -508,11 +508,33 @@ a:hover {
 .top-bar a {
     color: rgba(255, 255, 255, 0.9);
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 .top-bar a:hover {
     color: white;
+}
+
+/* Fix Top Bar Dropdown Jitter & Shift */
+.top-bar .dropdown-toggle {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    /* Prevent jitter on hover */
+    transform: none !important;
+}
+
+.top-bar .dropdown-toggle::after {
+    display: none !important;
+    /* Hide default Bootstrap caret to prevent shifts */
+}
+
+/* Custom caret if needed, or just rely on icon */
+.top-bar .dropdown-menu {
+    transform: none !important;
+    /* Disable bootstrap transform positioning issues if any */
+    top: 100% !important;
+    margin-top: 8px !important;
 }
 
 /* Navbar Modern */
