@@ -49,24 +49,24 @@ AppAsset::register($this);
                     <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>
                     <a href="#" class="me-2"><i class="bi bi-instagram"></i></a>
                     <a href="#" class="me-2"><i class="bi bi-telegram"></i></a>
+                </div>
 
-                    <span class="text-muted mx-2">|</span>
-
+                <div class="d-none d-sm-flex align-items-center ms-3">
                     <?php
                     // Top Bar Language Selector (Desktop - Dropdown)
                     $currentLang = Yii::$app->language;
                     $langs = \common\models\Language::getActiveLanguages();
                     ?>
-                    <div class="dropdown d-inline-block">
-                        <a class="dropdown-toggle text-decoration-none small text-muted" href="#" role="button"
-                            id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <?= strtoupper($currentLang) ?>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle text-decoration-none text-white small fw-bold opacity-75 hover-opacity-100"
+                            href="#" role="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-globe2 me-1"></i> <?= strtoupper($currentLang) ?>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="langDropdown"
-                            style="min-width: auto;">
+                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2"
+                            aria-labelledby="langDropdown" style="min-width: 150px;">
                             <?php foreach ($langs as $lang): ?>
                                 <li>
-                                    <a class="dropdown-item small <?= $currentLang === $lang->code ? 'active' : '' ?>"
+                                    <a class="dropdown-item small py-2 d-flex align-items-center <?= $currentLang === $lang->code ? 'active bg-light text-primary fw-bold' : '' ?>"
                                         href="<?= Url::to(['/site/language', 'lang' => $lang->code]) ?>">
                                         <span
                                             class="fi fi-<?= $lang->code === 'en' ? 'gb' : $lang->code ?> me-2 rounded-1"></span><?= $lang->name ?>
@@ -75,8 +75,6 @@ AppAsset::register($this);
                             <?php endforeach; ?>
                         </ul>
                     </div>
-                    <?php
-                    ?>
                 </div>
             </div>
         </div>
