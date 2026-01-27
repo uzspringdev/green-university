@@ -33,8 +33,9 @@ class Menu extends ActiveRecord
     public function rules()
     {
         return [
-            [['code'], 'required'],
+            [['name', 'code'], 'required'],
             [['status'], 'integer'],
+            [['name'], 'string', 'max' => 100],
             [['code'], 'string', 'max' => 50],
             [['code'], 'unique'],
             [['status'], 'default', 'value' => self::STATUS_ACTIVE],
