@@ -1,11 +1,25 @@
 #!/bin/bash
 
-# Configuration
+# ==========================================
+# Green University - Automated Deployment Script
+# ==========================================
+
 REPO_URL="https://github.com/uzspringdev/green-university.git"
 PROJECT_DIR="/var/www/green-university"
 BRANCH="main"
 
-echo "🚀 Starting Deployment..."
+echo "🚀 Starting Deployment for Green University..."
+
+# --- Interactive Prompts ---
+read -p "🌐 Enter Main Domain (e.g., green-university.uz): " DOMAIN
+read -p "🔧 Enter Admin Domain (e.g., admin.green-university.uz): " ADMIN_DOMAIN
+read -s -p "🔑 Enter Database Password (for 'postgres' user): " DB_PASSWORD
+echo ""
+
+if [ -z "$DOMAIN" ] || [ -z "$ADMIN_DOMAIN" ]; then
+    echo "❌ Error: Domains cannot be empty."
+    exit 1
+fi
 
 # 1. Update System & Install Dependencies
 echo "📦 Installing system dependencies..."
@@ -31,7 +45,24 @@ composer install --no-dev --optimize-autoloader
 echo "⚙️ Initializing Yii2 Environment..."
 php init --env=Production --overwrite=All
 
-# 5. Fix Permissions
+# 5. Configure Database (Update main-local.php)
+echo "🗄️ Configuring Database..."
+sed -i "s/'password' => ''/'password' => '$DB_PASSWORD'/g" common/config/main-local.php
+
+# 6. Configure Nginx
+echo "🌐 Configuring Nginx..."
+cp deployment/nginx.conf /etc/nginx/sites-available/green-university.conf
+
+# Replace placeholders in Nginx config
+sed -i "s|{{FRONTEND_DOMAIN}}|$DOMAIN|g" /etc/nginx/sites-available/green-university.conf
+sed -i "s|{{BACKEND_DOMAIN}}|$ADMIN_DOMAIN|g" /etc/nginx/sites-available/green-university.conf
+sed -i "s|{{PROJECT_ROOT}}|$PROJECT_DIR|g" /etc/nginx/sites-available/green-university.conf
+
+# Enable Site
+sudo ln -sf /etc/nginx/sites-available/green-university.conf /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl restart nginx
+
+# 7. Fix Permissions
 echo "🔒 Fixing file permissions..."
 sudo chown -R www-data:www-data $PROJECT_DIR
 sudo chmod -R 775 $PROJECT_DIR/backend/runtime
@@ -40,9 +71,18 @@ sudo chmod -R 775 $PROJECT_DIR/frontend/runtime
 sudo chmod -R 775 $PROJECT_DIR/frontend/web/assets
 sudo chmod -R 775 $PROJECT_DIR/frontend/web/uploads
 sudo chmod -R 775 $PROJECT_DIR/backend/web/uploads
+sudo chmod +x yii
 
-# 6. Database Migration (Optional - Unomment if DB is configured)
-# echo "🗄️ Running Migrations..."
-# php yii migrate/up --interactive=0
+# 8. Database Migration
+echo "🔄 Running Migrations..."
+# Note: Ensure postgres user exists and DB 'green_university' is created. 
+# We can try to create it if it doesn't exist (requires sudo -u postgres)
+sudo -u postgres psql -c "CREATE DATABASE green_university;" 2>/dev/null || echo "DB likely exists"
+# Set password for postgres user if needed (optional, assuming user knows what they are doing)
+# sudo -u postgres psql -c "ALTER USER postgres PASSWORD '$DB_PASSWORD';"
 
-echo "✅ Deployment Finished! Check Nginx config manually."
+php yii migrate/up --interactive=0
+
+echo "✅ Deployment Finished Successfully!"
+echo "🌍 Frontend: http://$DOMAIN"
+echo "🔧 Backend:  http://$ADMIN_DOMAIN"
