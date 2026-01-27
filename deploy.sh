@@ -53,10 +53,21 @@ sed -i "s/'password' => ''/'password' => '$DB_PASSWORD'/g" common/config/main-lo
 echo "🌐 Configuring Nginx..."
 cp deployment/nginx.conf /etc/nginx/sites-available/green-university.conf
 
+# Detect PHP Version
+PHP_VERSION=$(php -r 'echo PHP_MAJOR_VERSION.".".PHP_MINOR_VERSION;')
+echo "🐘 Detected PHP Version: $PHP_VERSION"
+
 # Replace placeholders in Nginx config
 sed -i "s|{{FRONTEND_DOMAIN}}|$DOMAIN|g" /etc/nginx/sites-available/green-university.conf
 sed -i "s|{{BACKEND_DOMAIN}}|$ADMIN_DOMAIN|g" /etc/nginx/sites-available/green-university.conf
 sed -i "s|{{PROJECT_ROOT}}|$PROJECT_DIR|g" /etc/nginx/sites-available/green-university.conf
+sed -i "s|php8.1-fpm.sock|php$PHP_VERSION-fpm.sock|g" /etc/nginx/sites-available/green-university.conf
+
+# Enable Firewall (UFW)
+echo "🛡️ Configuring Firewall..."
+sudo ufw allow 'Nginx Full'
+sudo ufw allow OpenSSH
+sudo ufw --force enable
 
 # Enable Site
 sudo rm -f /etc/nginx/sites-enabled/default
